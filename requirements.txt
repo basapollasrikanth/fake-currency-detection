@@ -5,3 +5,4 @@ pywavelets
 scikit-learn
 joblib
 tensorflow
+scikit-image
