@@ -2,8 +2,7 @@ streamlit
 opencv-python-headless
 numpy
 pywavelets
-scikit-learn==1.4.1
-
+scikit-learn==0.24.2
 joblib
 tensorflow
 scikit-image
