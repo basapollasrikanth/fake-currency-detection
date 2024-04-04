@@ -1,0 +1,9 @@
+libgl1-mesa-glx
+libglib2.0-0
+streamlit
+opencv-python
+numpy
+pywavelets
+scipy
+joblib
+tensorflow
