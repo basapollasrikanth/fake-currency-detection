@@ -2,9 +2,9 @@ import streamlit as st
 import cv2
 import numpy as np 
 import pywt
-from scipy.stats import skew, kurtosis, entropy
 import joblib
-
+from skimage.measure import shannon_entropy
+from sklearn.preprocessing import StandardScaler
 # Load the trained model
 model = joblib.load(r'./ensemble_model.joblib')  # Updated file extension to .joblib
 
@@ -15,12 +15,19 @@ def calculate_stats(img):
     cA2, (cH2, cV2, cD2), (cH1, cV1, cD1) = coeffs
     flat_coeffs = cA2.flatten()
     variance = flat_coeffs.var()
-    skewness = skew(flat_coeffs)
-    kurt = kurtosis(flat_coeffs)
-    entr = entropy(flat_coeffs)
+    
+    # Calculate skewness using scikit-learn
+    scaler = StandardScaler()
+    scaled_coeffs = scaler.fit_transform(flat_coeffs.reshape(-1, 1))
+    skewness = scaled_coeffs.mean()
+    
+    # Calculate kurtosis using scikit-learn
+    kurt = scaled_coeffs.std()
+    
+    # Calculate entropy using skimage
+    entr = shannon_entropy(flat_coeffs)
     
     return variance, skewness, kurt, entr
-
 # Streamlit UI
 st.title("Fake Currency Classifier")
 
